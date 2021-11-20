@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { QrCode } from './QrCode';
 
 export const App = () => {
   const [amount, setAmount] = useState('0');
@@ -33,9 +34,7 @@ export const App = () => {
         />
         <button onClick={handleClick}>Generate</button>
       </div>
-      <div>
-        <img src={qrCode} alt="" />
-      </div>
+      <QrCode url={qrCode} />
     </div>
   );
 };
