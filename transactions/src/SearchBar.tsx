@@ -1,7 +1,10 @@
 export const SearchBar = () => {
   return (
-    <div className="ui input">
-      <input type="text" placeholder="Search..." />
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className="ui input" style={{ width: '85%' }}>
+        <input type="text" placeholder="Enter a transaction ID..." />
+      </div>
+      <button className="ui primary button">Search</button>
     </div>
   );
 };
