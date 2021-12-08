@@ -1,30 +1,76 @@
-import { Transaction } from './App';
+import { Transaction, Input, Output } from './types';
+
+const toBitcoin = (satoshis: number) => {
+  return satoshis/(10**8)
+};
+
+type InputDetailProps = { input: Input }
+const InputDetail = ({ input }: InputDetailProps) => {
+  return <p>{input.txid}:{input.vout}</p>;
+}
+
+
+type OutputDetailProps = { output: Output }
+const OutputDetail = ({ output }: OutputDetailProps) => {
+  return (
+    <>
+      <p>{output.scriptpubkey_address}</p>
+      <p>Ammount: {toBitcoin(output.value)} BTC</p>
+    </>
+  );
+}
+
+const getTotalInputAmmount = (vin: Array<Input>): number => {
+  let totalAmmount = 0;
+  vin.forEach(input => totalAmmount += input.prevout.value);
+  return toBitcoin(totalAmmount);
+};
+
+const getTotalOutputAmmount = (vout: Array<Output>): number => {
+  let totalAmmount = 0;
+  vout.forEach(output => totalAmmount += output.value);
+  return toBitcoin(totalAmmount);
+};
 
 type TransactionCardProps = {
   tx: Transaction,
-}
-
+};
 export const TransactionCard = ({ tx }: TransactionCardProps) => {
+  const { txid, fee, vin, vout } = tx;
+
+  const renderInputDetails = vin.map(input => {
+    return <InputDetail input={input} />;
+  });
+
+  const renderOutputDetails = vout.map(output => {
+    return <OutputDetail output={output} />;
+  });
+
   return (
     <div className="ui card" style={{ width: '100%' }}>
       <div className="content">
 
         <div className="header">
-          Transaction ID: {tx.txid}
+          Transaction ID: {txid}
+          <br />
+          Number of inputs: {vin.length}
+          <br />
+          Number of Outputs: {vout.length}
+          <br />
+          Transaction Fee: {toBitcoin(fee)} BTC
         </div>
 
         <div className="description" style={{ display: 'flex', justifyContent: 'space-around' }}>
           <div>
             <p style={{ textAlign: 'center' }}>INPUTS From</p>
-            <p>1e5bc796465e057d6ac5ff258639ac5fc3999493b70456f2602d62c23479ba8a:0</p>
-            <p>1 BTC</p>
+            {renderInputDetails}
+            <p>Total: {getTotalInputAmmount(vin)} BTC</p>
           </div>
 
           <div>
             <p style={{ textAlign: 'center' }}>OUTPUTS To</p>
-            <p>1e5bc796465e057d6ac5ff258639ac5fc3999493b70456f2602d62c23479ba8a:0</p>
-            <p>0.9 BTC</p>
-            <p>Fee: {tx.fee / (10**8)} BTC</p>
+            {renderOutputDetails}
+            <p>Total: {getTotalOutputAmmount(vout)} BTC</p>
           </div>
 
         </div>

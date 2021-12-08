@@ -4,6 +4,8 @@ import axios from 'axios';
 import { SearchBar } from './SearchBar';
 import { TransactionCard } from './TransactionCard';
 
+import { Transaction } from './types';
+
 /* Transaction Chain Visualizer
  *
  * User enters a txId
@@ -12,40 +14,22 @@ import { TransactionCard } from './TransactionCard';
  *
 */
 
-//interface Input {
-  //addr: string,
-  //value: number,
-  //is_coinbase: boolean,
-  //index: number,
-//};
-
-//interface Output {
-  //addr: string,
-  //value: number,
-  //index: number,
-//};
-
-export interface Transaction {
-  txid: string,
-  fee: number,
-  //vin: Array<Input>,
-  //vout: Array<Output>,
-};
-
 const assembleTransaction = (data: any): Transaction => {
   return {
     txid: data.txid,
     fee: data.fee,
-  }
+    vin: data.vin,
+    vout: data.vout,
+  };
 };
 
 export const App = () => {
   const [txId, setTxId] = useState('');
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
-  const url = 'https://mempool.space/api/tx/';
 
   const getTxIdInfo = async () => {
     try {
+      const url = 'https://mempool.space/api/tx/';
       const response = await axios.get(url + txId);
       const transaction: Transaction = assembleTransaction(response.data);
       setTransactions([...transactions, transaction]);
