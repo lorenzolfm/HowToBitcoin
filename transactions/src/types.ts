@@ -20,12 +20,3 @@ export interface Transaction {
   vin: Array<Input>,
   vout: Array<Output>,
 };
-
-export const assembleTransaction = (data: any): Transaction => {
-  return {
-    txid: data.txid,
-    fee: data.fee,
-    vin: data.vin,
-    vout: data.vout,
-  };
-};
