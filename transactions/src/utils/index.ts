@@ -1,4 +1,5 @@
-import { Input, Output } from '../types';
+import axios from 'axios';
+import { Transaction, Input, Output } from '../types';
 
 export const toBitcoin = (satoshis: number): number => {
   return satoshis / (10 ** 8);
@@ -14,4 +15,24 @@ export const getTotalOutputAmmount = (vout: Array<Output>): number => {
   let totalAmmount = 0;
   vout.forEach(output => totalAmmount += output.value);
   return toBitcoin(totalAmmount);
+};
+
+export const assembleTransaction = (data: any): Transaction => {
+  return {
+    txid: data.txid,
+    fee: data.fee,
+    vin: data.vin,
+    vout: data.vout,
+  };
+};
+
+export const getTxIdInfo = async (txId: string, transactions: Transaction[], callback: Function) => {
+  try {
+    const url = 'https://mempool.space/api/tx/';
+    const response = await axios.get(url + txId);
+    const transaction: Transaction = assembleTransaction(response.data);
+    callback([...transactions, transaction]);
+  } catch (error) {
+    console.log(error);
+  }
 };
