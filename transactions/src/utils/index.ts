@@ -17,7 +17,7 @@ export const getTotalOutputAmmount = (vout: Array<Output>): number => {
   return toBitcoin(totalAmmount);
 };
 
-export const assembleTransaction = (data: any): Transaction => {
+const assembleTransaction = (data: any): Transaction => {
   return {
     txid: data.txid,
     fee: data.fee,
