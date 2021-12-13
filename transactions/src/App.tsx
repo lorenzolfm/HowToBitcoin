@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import { SearchBar } from './components/SearchBar';
-import { TransactionCard } from './components/TransactionCard';
+import { TransactionCard } from './components/TransactionCard/';
 
 import { Transaction } from './types';
 

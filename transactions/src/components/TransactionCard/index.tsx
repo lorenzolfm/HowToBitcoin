@@ -1,32 +1,12 @@
-import { Transaction, Input, Output } from '../types';
-import { toBitcoin } from '../utils';
+import { Transaction } from '../../types';
+import {
+  toBitcoin,
+  getTotalInputAmmount,
+  getTotalOutputAmmount ,
+} from '../../utils';
 
-type InputDetailProps = { input: Input }
-const InputDetail = ({ input }: InputDetailProps) => {
-  return <p>{input.txid}:{input.vout}</p>;
-}
-
-type OutputDetailProps = { output: Output }
-const OutputDetail = ({ output }: OutputDetailProps) => {
-  return (
-    <>
-      <p>{output.scriptpubkey_address}</p>
-      <p>Ammount: {toBitcoin(output.value)} BTC</p>
-    </>
-  );
-}
-
-const getTotalInputAmmount = (vin: Array<Input>): number => {
-  let totalAmmount = 0;
-  vin.forEach(input => totalAmmount += input.prevout.value);
-  return toBitcoin(totalAmmount);
-};
-
-const getTotalOutputAmmount = (vout: Array<Output>): number => {
-  let totalAmmount = 0;
-  vout.forEach(output => totalAmmount += output.value);
-  return toBitcoin(totalAmmount);
-};
+import { InputDetail } from './InputDetail';
+import { OutputDetail } from './OutputDetail';
 
 type TransactionCardProps = {
   tx: Transaction,
