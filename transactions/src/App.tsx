@@ -1,18 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import { SearchBar } from './SearchBar';
-import { TransactionCard } from './TransactionCard';
+import { SearchBar } from './components/SearchBar';
+import { TransactionCard } from './components/TransactionCard';
 
 import { Transaction } from './types';
-
-/* Transaction Chain Visualizer
- *
- * User enters a txId
- * Systems gets the transactions and displays it
- * Then searches for transactions inputs who have spent the previous output
- *
-*/
 
 const assembleTransaction = (data: any): Transaction => {
   return {

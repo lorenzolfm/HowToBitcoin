@@ -1,14 +1,10 @@
-import { Transaction, Input, Output } from './types';
-
-const toBitcoin = (satoshis: number) => {
-  return satoshis/(10**8)
-};
+import { Transaction, Input, Output } from '../types';
+import { toBitcoin } from '../utils';
 
 type InputDetailProps = { input: Input }
 const InputDetail = ({ input }: InputDetailProps) => {
   return <p>{input.txid}:{input.vout}</p>;
 }
-
 
 type OutputDetailProps = { output: Output }
 const OutputDetail = ({ output }: OutputDetailProps) => {
