@@ -1,3 +1,5 @@
+import { MouseEvent } from 'react';
+
 import { Transaction } from '../../types';
 import {
   toBitcoin,
@@ -10,8 +12,9 @@ import { OutputDetail } from './OutputDetail';
 
 type TransactionCardProps = {
   tx: Transaction,
+  onAddressClicked: (event: MouseEvent<HTMLParagraphElement>) => void 
 };
-export const TransactionCard = ({ tx }: TransactionCardProps) => {
+export const TransactionCard = ({ tx, onAddressClicked }: TransactionCardProps) => {
   const { txid, fee, vin, vout } = tx;
 
   const renderInputDetails = vin.map(input => {
@@ -19,7 +22,7 @@ export const TransactionCard = ({ tx }: TransactionCardProps) => {
   });
 
   const renderOutputDetails = vout.map(output => {
-    return <OutputDetail output={output} />;
+    return <OutputDetail output={output} onAddressClicked={onAddressClicked} />;
   });
 
   return (

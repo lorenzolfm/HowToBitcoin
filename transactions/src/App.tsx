@@ -13,7 +13,7 @@ export const App = () => {
   const handleSearch = () => getTxIdInfo(txId, transactions, setTransactions);
 
   const renderTransactions = transactions.map(tx => {
-    return <TransactionCard key={tx.txid} tx={tx} />;
+    return <TransactionCard key={tx.txid} tx={tx} onAddressClicked={() => console.log('heyo')} />;
   });
 
   return (
