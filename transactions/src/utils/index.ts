@@ -37,6 +37,8 @@ export const getTxIdInfo = async (txId: string, transactions: Transaction[], cal
   }
 };
 
+// FIX: returns up to 50 mempool transactions plus the first 25 confirmed transactions.
+// So the count of txs can be wrong.
 export const getAddrTxCount = async (addr: string) => {
   try {
     const url = `https://mempool.space/api/address/${addr}/txs`;
