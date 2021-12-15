@@ -8,7 +8,7 @@ import { getTxIdInfo } from './utils';
 
 export const App = () => {
   const [txId, setTxId] = useState('');
-  const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   const handleSearch = () => getTxIdInfo(txId, transactions, setTransactions);
 
