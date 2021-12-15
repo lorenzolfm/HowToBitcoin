@@ -36,3 +36,14 @@ export const getTxIdInfo = async (txId: string, transactions: Transaction[], cal
     console.log(error);
   }
 };
+
+export const getAddrTxCount = async (addr: string) => {
+  try {
+    const url = `https://mempool.space/api/address/${addr}/txs`;
+    const response = await axios.get(url);
+    return response.data.length;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
