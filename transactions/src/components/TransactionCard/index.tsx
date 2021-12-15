@@ -1,5 +1,3 @@
-import { MouseEvent } from 'react';
-
 import { Transaction } from '../../types';
 import {
   toBitcoin,
@@ -12,23 +10,21 @@ import { OutputDetail } from './OutputDetail';
 
 type TransactionCardProps = {
   tx: Transaction,
-  onAddressClicked: (event: MouseEvent<HTMLParagraphElement>) => void 
+  onAddressClicked: (addr: string) => void,
 };
 export const TransactionCard = ({ tx, onAddressClicked }: TransactionCardProps) => {
   const { txid, fee, vin, vout } = tx;
 
-  const renderInputDetails = vin.map(input => {
-    return <InputDetail input={input} />;
+  const renderInputDetails = vin.map((input, index) => {
+    return <InputDetail key={index.toString()} input={input} />;
   });
 
-  const renderOutputDetails = vout.map(output => {
-    return <OutputDetail output={output} onAddressClicked={onAddressClicked} />;
+  const renderOutputDetails = vout.map((output, index) => {
+    return <OutputDetail key={index.toString()} output={output} onAddressClicked={onAddressClicked} />;
   });
 
   return (
-    <div className="ui card" style={{ width: '100%' }}>
       <div className="content">
-
         <div className="header">
           Transaction ID: {txid}
           <br />
@@ -38,22 +34,18 @@ export const TransactionCard = ({ tx, onAddressClicked }: TransactionCardProps) 
           <br />
           Transaction Fee: {toBitcoin(fee)} BTC
         </div>
-
         <div className="description" style={{ display: 'flex', justifyContent: 'space-around' }}>
           <div>
             <p style={{ textAlign: 'center' }}>INPUTS From</p>
             {renderInputDetails}
             <p>Total: {getTotalInputAmmount(vin)} BTC</p>
           </div>
-
           <div>
             <p style={{ textAlign: 'center' }}>OUTPUTS To</p>
             {renderOutputDetails}
             <p>Total: {getTotalOutputAmmount(vout)} BTC</p>
           </div>
-
         </div>
       </div>
-    </div>
   );
-}
+};
