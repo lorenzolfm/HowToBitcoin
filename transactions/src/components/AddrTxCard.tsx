@@ -4,7 +4,7 @@ type Props = {
 };
 export const AddrTxCard = ({ txCount, address }: Props) => {
   return(
-    <div>
+    <div className="ui content">
       <p>The address {address}, has {txCount} transactions associated with it</p>
     </div>
   );
