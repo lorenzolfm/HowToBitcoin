@@ -11,12 +11,14 @@ import { OutputDetail } from './OutputDetail';
 type TransactionCardProps = {
   tx: Transaction,
   onAddressClicked: (addr: string) => void,
+  onTxIdClicked: (addr: string) => void,
 };
-export const TransactionCard = ({ tx, onAddressClicked }: TransactionCardProps) => {
+
+export const TransactionCard = ({ tx, onAddressClicked, onTxIdClicked }: TransactionCardProps) => {
   const { txid, fee, vin, vout } = tx;
 
   const renderInputDetails = vin.map((input, index) => {
-    return <InputDetail key={index.toString()} input={input} />;
+    return <InputDetail key={index.toString()} input={input} onTxIdClicked={onTxIdClicked} />;
   });
 
   const renderOutputDetails = vout.map((output, index) => {
@@ -34,16 +36,18 @@ export const TransactionCard = ({ tx, onAddressClicked }: TransactionCardProps) 
           <br />
           Transaction Fee: {toBitcoin(fee)} BTC
         </div>
-        <div className="description" style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div className="description" style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div>
             <p style={{ textAlign: 'center' }}>INPUTS From</p>
             {renderInputDetails}
-            <p>Total: {getTotalInputAmmount(vin)} BTC</p>
+            <p style={{ textAlign: 'right' }}>Total: {getTotalInputAmmount(vin)} BTC</p>
+            <p>You can search other transactions by clicking in any txid above.</p>
           </div>
           <div>
             <p style={{ textAlign: 'center' }}>OUTPUTS To</p>
             {renderOutputDetails}
-            <p>Total: {getTotalOutputAmmount(vout)} BTC</p>
+            <p style={{ textAlign: 'right' }}>Total: {getTotalOutputAmmount(vout)} BTC</p>
+            <p>Click on an address to see how many transactions are associated with that address.</p>
           </div>
         </div>
       </div>

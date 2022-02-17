@@ -23,17 +23,31 @@ export const App = () => {
 
   const handleSearch = () => getTxIdInfo(txId, transactions, setTransactions);
 
+  const handleTxIdClick = (txId: string) => {
+    const hasTxId = transactions.filter(t => t.txid === txId).length !== 0;
+
+    if (hasTxId) {
+      return
+    }
+
+    getTxIdInfo(txId, transactions, setTransactions);
+  }
+
   const renderTransactions = transactions.map(tx => {
     return (
       <div className="ui card" key={tx.txid} style={{ width: '100%' }}>
-        <TransactionCard tx={tx} onAddressClicked={setSelectedAddr} />
+        <TransactionCard
+          tx={tx}
+          onTxIdClicked={handleTxIdClick}
+          onAddressClicked={setSelectedAddr} 
+        />
         {selectedAddr && <AddrTxCard txCount={txCount} address={selectedAddr}/>}
       </div>
     )
   });
 
   return (
-    <div className="ui container" style={{ marginTop: 20 }}>
+    <div className="ui container" style={{ marginTop: 20, width: '90%' }}>
       <SearchBar value={txId} onChange={setTxId} onSearch={handleSearch} />
       {renderTransactions}
     </div>
