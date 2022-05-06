@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input matches snapshot 1`] = `
+<div
+  className="ui labeled input"
+>
+  <div
+    className="ui label"
+  >
+    test
+  </div>
+  <input
+    id="test"
+    onChange={[Function]}
+    placeholder="test"
+    value="test"
+  />
+</div>
+`;
