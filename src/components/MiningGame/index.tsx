@@ -49,7 +49,7 @@ export const MiningGame = () => {
               id="number-of-bullets"
               type="number"
               min="1"
-              max="5"
+              max="10"
               step={1}
               value={numOfBullets}
               onChange={onNumOfBulletsChange}
