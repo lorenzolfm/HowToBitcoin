@@ -8,7 +8,7 @@ import { HashFunction } from 'pages/HashFunction';
 
 export const App = (): JSX.Element => {
   return (
-    <div>
+    <div className="ui container">
       <Header />
       <Routes>
         <Route path="/qrcode" element={<QrCodeGenerator />} />

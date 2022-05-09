@@ -17,8 +17,8 @@ export const HashFunction = () => {
       <div className="ui segment">
         <h1 className="ui center aligned segment">Hash Function Playground</h1>
         <Input id="Input" value={input} onChange={setInput} />
-        <div className="ui segment">
-          <p>{output}</p>
+        <div className="ui segment" style={{ overflowWrap: 'break-word' }}>
+          {output}
         </div>
       </div>
     </div>
